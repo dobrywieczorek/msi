@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    /* Stylizacja quizu */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      text-align: center;
+    }
+
+    .quiz-container {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      max-width: 500px;
+      margin: 20px auto;
+      padding: 20px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .question {
+      font-size: 24px;
+      margin: 20px 0;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .option:hover {
+      background-color: #45a049;
+    }
+
+    .result {
+      font-size: 24px;
+      margin: 20px 0;
+    }
+
+    .restart {
+      background-color: #008CBA;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .restart:hover {
+      background-color: #007a9b;
+    }
+  </style>
+</head>
+<body>
+<div class="quiz-container" id="quiz">
+<div class="quiz" id="question1">
+<p class="question">Jesteś rannym ptaszkiem, czy nocnym markiem?</p>
+<div class="options">
+<button class="option" data-next="question2" data-choice="morning">Ranny ptaszek</button>
+<button class="option" data-next="question8" data-choice="night">Nocny marek</button>
+</div>
+</div>
+
+<div class="quiz" id="question2">
+  <p class="question">Jaka jest Twoja ulubiona pogoda?</p>
+  <div class="options">
+    <button class="option" data-next="question3" data-choice="sunny">Słoneczna i ciepła</button>
+    <button class="option" data-next="question4" data-choice="rainy">Deszczowa i chłodna</button>
+    <button class="option" data-next="question5" data-choice="snowy">Śnieżna i zimna</button>
+    <button class="option" data-next="question6" data-choice="windy">Wietrzna i orzeźwiająca</button>
+    <button class="option" data-next="question7" data-choice="foggy">Mglista i tajemnicza</button>
+  </div>
+</div>
+
+
+<div class="quiz" id="question3">
+<p class="question">Wybierz swoją ulubioną aktywność na świeżym powietrzu:</p>
+<div class="options">
+<button class="option" data-next="result" data-choice="beach">Leniwe plażowanie</button>
+<button class="option" data-next="result" data-choice="mountain">Wędrówki w górach</button>
+</div>
+</div>
+
+<div class="quiz" id="question4">
+    <p class="question">Wybierz zajęcie na deszczowy dzień:</p>
+    <div class="options">
+    <button class="option" data-next="result" data-choice="book">Czytanie książki</button>
+    <button class="option" data-next="result" data-choice="cookies">Pieczenie ciasteczek</button>
+    </div>
+    </div>
+
+    <div class="quiz" id="question5">
+        <p class="question">Jaka jest Twója ulubiona zimowa aktywność?</p>
+        <div class="options">
+        <button class="option" data-next="result" data-choice="skiing">Narciarstwo/snowboard</button>
+        <button class="option" data-next="result" data-choice="fireplace">Siedzenie przy ognisku i popijanie gorącej czekolady</button>
+        </div>
+        </div>
+
+<div class="quiz" id="question6">
+    <p class="question">Co lubisz robić w wietrzny dzień?</p>
+    <div class="options">
+    <button class="option" data-next="result" data-choice="kite">Puszczać latawiec</button>
+    <button class="option" data-next="result" data-choice="walk">Długi spacer</button>
+    </div>
+    </div>    
+    
+<div class="quiz" id="question7">
+    <p class="question">Wybierz przygodę w mglisty dzień:</p>
+    <div class="options">
+    <button class="option" data-next="result" data-choice="riddles">Rozwiązywanie zagadek</button>
+    <button class="option" data-next="result" data-choice="meditation">Refleksja i medytacja</button>
+    </div>
+    </div>    
+
+
+<div class="quiz" id="question8">
+<p class="question">Lubisz obserwować gwiazdy?</p>
+<div class="options">
+<button class="option" data-next="question9" data-choice="yes">Tak</button>
+<button class="option" data-next="question10" data-choice="no">Nie</button>
+</div>
+</div>
+
+<div class="quiz" id="question9">
+    <p class="question">Jaki jest Twój ulubiony wygląd nieba?</p>
+    <div class="options">
+    <button class="option" data-next="result" data-choice="moon">Księżyc i gwiazdy</button>
+    <button class="option" data-next="result" data-choice="planets">Planety i galaktyki</button>
+    </div>
+    </div>
+    
+<div class="quiz" id="question10">
+    <p class="question">Wybierz ulubioną nocną aktywność:</p>
+    <div class="options">
+    <button class="option" data-next="result" data-choice="movies">Oglądanie filmów lub telewizji</button>
+    <button class="option" data-next="result" data-choice="friends">Spotykanie się z przyjaciółmi</button>
+    </div>
+    </div>
+<!-- Pozostałe pytania i odpowiedzi... -->
+
+<!-- Odpowiedzi -->
+<div class="quiz" id="result">
+<p class="result">Twój wynik to: <span id='personalityColor'></span></p>
+<button class='restart' id='restart'>Rozpocznij ponownie</button>
+</div>
+
+<script>
+
+    var questions = document.querySelectorAll('.quiz');
+    var options = document.querySelectorAll('.option');
+    var result = document.querySelector('.result');
+    var restartButton = document.querySelector('#restart');
+    var currentQuestion = 'question1';
+    var choices = {
+       morning: 0,
+       night: 0,
+       sunny: 0,
+       rainy: 0,
+       snowy: 0,
+       windy: 0,
+       foggy: 0,
+       yes: 0,
+       no: 0,
+       beach: 0,
+       mountain: 0,
+       book: 0,
+       cookies: 0,
+       skiing: 0,
+       fireplace: 0,
+       kite: 0,
+       walk: 0,
+       riddles: 0,
+       meditation: 0,
+       moon: 0,
+       planets: 0,
+       movies: 0,
+       friends: 0
+    };
+
+    function displayQuestion(questionId) {
+       questions.forEach(function (question) {
+          question.style.display = 'none';
+       });
+       if (questionId==="result") {
+          var personalityColor = calculatePersonalityColor(choices);
+          document.getElementById('personalityColor').textContent = personalityColor;
+          document.getElementById('personalityColor').style.color = personalityColor;
+       }
+       document.getElementById(questionId).style.display = 'block';
+    }
+
+    function displayResult() {
+       result.style.display = 'block';
+       
+    }
+
+    function calculatePersonalityColor(choices) {
+       if (choices.morning > choices.night) {
+          if (choices.sunny > choices.rainy) {
+             if (choices.beach > choices.mountain) {
+                return "Turkusowy";
+             } else {
+                return "Szmaragdowozielony";
+             }
+          } else if (choices.rainy > choices.snowy) {
+             if (choices.book > choices.cookies) {
+                return "Głęboko Niebieski";
+             } else {
+                return "Czekoladowo-Brunatny";
+             }
+          } else if (choices.snowy > choices.windy) {
+             if (choices.skiing > choices.fireplace) {
+                return "Arktyczno-Niebieski";
+             } else {
+                return "Ciepło-Czerwony";
+             }
+          } else if (choices.windy > choices.foggy) {
+             if (choices.kite > choices.walk) {
+                return "Słonecznie-Żółty";
+             } else {
+                return "Naturalnie-Zielony";
+             }
+          } else {
+             if (choices.riddles > choices.meditation) {
+                return "Tajemniczo-Fioletowy";
+             } else {
+                return "Spokojnie-Szary";
+             }
+          }
+       } else {
+          if (choices.yes > choices.no) {
+             if (choices.moon > choices.planets) {
+                return "Północno-Nocno-Czarny";
+             } else {
+                return "Kosmiczno-Niebieski";
+             }
+          } else {
+             if (choices.movies > choices.friends) {
+                return "Głębokie-Indygo";
+             } else {
+                return "Intensywnie-Różowy";
+             }
+          }
+       }
+    }
+
+    options.forEach(function (option) {
+       option.addEventListener('click', function () {
+          var nextQuestionId = option.getAttribute('data-next');
+          var choice = option.getAttribute('data-choice');
+          choices[choice]++;
+          console.log(nextQuestionId);
+          // if (nextQuestionId == 'result') {
+          //    displayResult();
+          // } else {
+             displayQuestion(nextQuestionId);
+          // }
+       });
+    });
+
+    restartButton.addEventListener('click', function () {
+       displayQuestion('question1');
+       // result.style.display = 'none';
+       // restartButton.style.display = 'none';
+       choices = resetChoices();
+    });
+
+    function resetChoices() {
+       return {
+          morning: 0, night: 0, sunny: 0, rainy: 0, snowy: 0, windy: 0, foggy: 0, yes: 0, no: 0, beach: 0, mountain: 0, book: 0, cookies: 0, skiing: 0, fireplace: 0, kite: 0, walk: 0, riddles: 0, meditation: 0, moon: 0, planets: 0, movies: 0, friends: 0
+       };
+    }
+
+    displayQuestion(currentQuestion);
+
+ </script>
