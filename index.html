@@ -62,10 +62,42 @@
     .restart:hover {
       background-color: #007a9b;
     }
+
+    /* Nowy styl dla strony startowej */
+    .start-page {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      max-width: 500px;
+      margin: 20px auto;
+      padding: 20px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .start-button {
+      background-color: #008CBA;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background-color 0.3s;
+    }
+
+    .start-button:hover {
+      background-color: #007a9b;
+    }
   </style>
 </head>
 <body>
-<div class="quiz-container" id="quiz">
+
+<div class="start-page">
+  <h1>QUIZ - Jakim kolorem jesteś?</h1>
+  <button class="start-button" onclick="startQuiz()">Zaczynamy!</button>
+</div>
+
+<div class="quiz-container" id="quiz" style="display: none;">
 <div class="quiz" id="question1">
 <p class="question">Jesteś rannym ptaszkiem, czy nocnym markiem?</p>
 <div class="options">
@@ -257,6 +289,12 @@
           }
        }
     }
+
+function startQuiz() {
+  document.querySelector('.start-page').style.display = 'none';
+  document.getElementById('quiz').style.display = 'block';
+  displayQuestion(currentQuestion);
+}
 
     options.forEach(function (option) {
        option.addEventListener('click', function () {
