@@ -229,72 +229,62 @@
        });
        if (questionId==="result") {
           var personalityColor = calculatePersonalityColor(choices);
-          document.getElementById('personalityColor').textContent = personalityColor;
-          document.getElementById('personalityColor').style.color = personalityColor;
+          document.getElementById('personalityColor').textContent = personalityColor[0];
+          document.getElementById('personalityColor').style.color = personalityColor[0];
+          document.querySelector("body").style.background = personalityColor[1]; 
        }
        document.getElementById(questionId).style.display = 'block';
-    }
-
-    function displayResult() {
-       result.style.display = 'block';
-       
     }
 
     function calculatePersonalityColor(choices) {
        if (choices.morning > choices.night) {
           if (choices.sunny > choices.rainy) {
              if (choices.beach > choices.mountain) {
-                return "Turkusowy";
+                return ["Turkusowy","#03fcec"];
              } else {
-                return "Szmaragdowozielony";
+                return ["Szmaragdowozielony", "#089988"];
              }
           } else if (choices.rainy > choices.snowy) {
              if (choices.book > choices.cookies) {
-                return "Głęboko Niebieski";
+                return ["Głęboko-Niebieski","#080c99"];
              } else {
-                return "Czekoladowo-Brunatny";
+                return ["Czekoladowo-Brunatny","#5e2303"];
              }
           } else if (choices.snowy > choices.windy) {
              if (choices.skiing > choices.fireplace) {
-                return "Arktyczno-Niebieski";
+                return ["Arktyczno-Niebieski","#2798e8"];
              } else {
-                return "Ciepło-Czerwony";
+                return ["Ciepło-Czerwony","#ed2d07"];
              }
           } else if (choices.windy > choices.foggy) {
              if (choices.kite > choices.walk) {
-                return "Słonecznie-Żółty";
+                return ["Słonecznie-Żółty","#faed34"];
              } else {
-                return "Naturalnie-Zielony";
+                return ["Naturalnie-Zielony","#85d43b"];
              }
           } else {
              if (choices.riddles > choices.meditation) {
-                return "Tajemniczo-Fioletowy";
+                return ["Tajemniczo-Fioletowy","#a33bd4"];
              } else {
-                return "Spokojnie-Szary";
+                return ["Spokojnie-Szary","#9a959c"];
              }
           }
        } else {
           if (choices.yes > choices.no) {
              if (choices.moon > choices.planets) {
-                return "Północno-Nocno-Czarny";
+                return ["Północno-Nocno-Czarny","#12122e"];
              } else {
-                return "Kosmiczno-Niebieski";
+                return ["Kosmiczno-Niebieski","#0f1061"];
              }
           } else {
              if (choices.movies > choices.friends) {
-                return "Głębokie-Indygo";
+                return ["Głębokie-Indygo","#1013b5"];
              } else {
-                return "Intensywnie-Różowy";
+                return ["Intensywnie-Różowy","#c922be"];
              }
           }
        }
     }
-
-function startQuiz() {
-  document.querySelector('.start-page').style.display = 'none';
-  document.getElementById('quiz').style.display = 'block';
-  displayQuestion(currentQuestion);
-}
 
     options.forEach(function (option) {
        option.addEventListener('click', function () {
@@ -321,6 +311,12 @@ function startQuiz() {
        return {
           morning: 0, night: 0, sunny: 0, rainy: 0, snowy: 0, windy: 0, foggy: 0, yes: 0, no: 0, beach: 0, mountain: 0, book: 0, cookies: 0, skiing: 0, fireplace: 0, kite: 0, walk: 0, riddles: 0, meditation: 0, moon: 0, planets: 0, movies: 0, friends: 0
        };
+    }
+
+    function startQuiz() {
+       document.querySelector('.start-page').style.display = 'none';
+       document.getElementById('quiz').style.display = 'block';
+       displayQuestion(currentQuestion);
     }
 
     displayQuestion(currentQuestion);
